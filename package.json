@@ -1,0 +1,35 @@
+{
+  "name": "aspell-stream",
+  "version": "0.1.0",
+  "description": "Readable and writable stream that spell checks your text and parses aspell output to an understandable format",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rexxars/aspell-stream.git"
+  },
+  "keywords": [
+    "aspell",
+    "spellcheck",
+    "spelling"
+  ],
+  "author": "Espen Hovlandsdal <espen@hovlandsdal.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rexxars/aspell-stream/issues"
+  },
+  "homepage": "https://github.com/rexxars/aspell-stream",
+  "dependencies": {
+    "duplexer": "^0.1.1",
+    "plexer": "0.0.3",
+    "shell-escape": "^0.1.0",
+    "split": "^0.3.0",
+    "through": "^2.3.4",
+    "to-slug-case": "^0.1.2"
+  },
+  "devDependencies": {
+    "tape": "^2.13.3"
+  }
+}
