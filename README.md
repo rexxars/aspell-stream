@@ -3,6 +3,12 @@ aspell-stream
 
 Readable and writable stream that spell checks your text and parses aspell output to an understandable format
 
+Installation
+============
+
+Make sure `aspell` is installed on your system (`apt-get install aspell` on debian-based systems).
+Run `npm install --save aspell-stream` to include it in your project.
+
 Usage
 =====
 
