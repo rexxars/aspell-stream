@@ -1,6 +1,6 @@
 {
   "name": "aspell-stream",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Readable and writable stream that spell checks your text and parses aspell output to an understandable format",
   "main": "index.js",
   "scripts": {
