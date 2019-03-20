@@ -1,5 +1,5 @@
 {
-  "name": "@lfamorim/aspell-stream",
+  "name": "aspell-stream",
   "version": "0.1.0",
   "description": "Readable and writable stream that spell checks your text and parses aspell output to an understandable format",
   "main": "index.js",
@@ -29,6 +29,7 @@
     "to-slug-case": "^0.1.2"
   },
   "devDependencies": {
-    "eslint": "^5.15.3"
+    "eslint": "^5.15.3",
+    "tape": "^4.10.1"
   }
 }

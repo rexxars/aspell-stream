@@ -11,7 +11,7 @@ module.exports = function parseLine(line) {
     var ctrl = line.charAt(0);
 
     if (ctrl === '@') {
-        return { type: 'comment', line: line };
+        return { type: 'aspellComment', line: line };
     } else if (ctrl === '*') {
         return ok;
     } else if (ctrl === '-') {

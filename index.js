@@ -11,6 +11,10 @@ function parseOpts(options) {
     var flags = [];
     var opts = options || {};
     for (var key in opts) {
+        if (opts[key] === true) {
+            flags.push(`--${slug(key)}`);
+            continue;
+        }
         flags.push(`--${slug(key)}=${shellescape([opts[key]])}`);
     }
     return flags;
@@ -28,6 +32,7 @@ function aspell(opts) {
         .pipe(es.map(function (data, cb) {
             var result = parser(data);
             stream.emit(result.type, result);
+            stream.emit('aspell', result);
             cb();
         }));
 
