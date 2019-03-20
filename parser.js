@@ -1,8 +1,7 @@
-'use strict';
-var ok = { type: 'ok' };
-var unknown = { type: 'unknown' };
-var runTogether = { type: 'ok', runTogether: true };
-var lineBreak = { type: 'line-break' };
+var ok = Object.freeze({ type: 'aspellOk' });
+var unknown = Object.freeze({ type: 'aspellUnknown' });
+var runTogether = Object.freeze({ type: 'aspellOk', runTogether: true });
+var lineBreak = Object.freeze({ type: 'aspellLineBreak' });
 
 module.exports = function parseLine(line) {
     if (line.length <= 0) {
@@ -23,7 +22,7 @@ module.exports = function parseLine(line) {
 
     var parts = line.split(/:?,?\s/g);
     return {
-        type: 'misspelling',
+        type: 'aspellMisspelling',
         word: parts[1],
         position: parseInt((ctrl === '#' ? parts[2] : parts[3]) || 0, 10),
         alternatives: parts.slice(4)

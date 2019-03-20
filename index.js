@@ -1,38 +1,37 @@
-'use strict';
-var events = require('events');
-var util = require('util');
+var ee = require('event-emitter');
 var duplexer = require('duplexer');
-var spawn = require('child_process').spawn;
-var split = require('split');
-var through = require('through2');
-var parser = require('./parser');
+var es = require('event-stream');
+var { spawn } = require('child_process');
 var slug = require('to-slug-case');
 var shellescape = require('shell-escape');
 
+var parser = require('./parser');
+
 function parseOpts(options) {
-    var flags = [], opts = options || {}, val;
+    var flags = [];
+    var opts = options || {};
     for (var key in opts) {
-        val = opts[key];
-        val = val === true ? '' : ('=' + shellescape([val]));
-
-        flags.push('--' + slug(key) + val);
+        flags.push(`--${slug(key)}=${shellescape([opts[key]])}`);
     }
-
     return flags;
 }
 
-module.exports = function(opts) {
+
+function aspell(opts) {
     var proc   = spawn('aspell', ['-a'].concat(parseOpts(opts)));
     var stream = duplexer(proc.stdin, proc.stdout);
 
+    ee(stream);
+
     proc.stdout
-        .pipe(split())
-        .pipe(through(function(chunk, enc, cb) {
-            var result = parser(chunk.toString());
+        .pipe(es.split())
+        .pipe(es.map(function (data, cb) {
+            var result = parser(data);
             stream.emit(result.type, result);
             cb();
         }));
 
-    util.inherits(stream, events.EventEmitter);
     return stream;
-};
+}
+
+module.exports = aspell;
