@@ -1,7 +1,7 @@
 var ee = require('event-emitter');
 var duplexer = require('duplexer');
 var es = require('event-stream');
-var { spawn } = require('child_process');
+var spawn = require('child_process').spawn;
 var slug = require('to-slug-case');
 var shellescape = require('shell-escape');
 
