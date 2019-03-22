@@ -15,7 +15,7 @@ function parseOpts(options) {
             flags.push(`--${slug(key)}`);
             continue;
         }
-        flags.push(`--${slug(key)}=${shellescape([opts[key]])}`);
+        flags.push('--' + slug(key) + '=' + shellescape([opts[key]]));
     }
     return flags;
 }
