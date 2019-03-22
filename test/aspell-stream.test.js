@@ -4,8 +4,8 @@ var aspell = require('../');
 
 test('fires "misspelling"-events', function(t) {
     t.plan(3);
-    var spellStream = aspell()
-        .on('misspelling', function(err) {
+    var spellStream = aspell({lang: 'en'})
+        .on('aspellMisspelling', function(err) {
             t.equal(err.word, 'someting', 'correct word should be picked up');
             t.equal(err.position, 9, 'correct position for the word picked up');
             t.assert(err.alternatives.length > 0, 'alternatives are provided');
@@ -17,11 +17,11 @@ test('fires "misspelling"-events', function(t) {
 
 test('fires "ok"-events', function(t) {
     t.plan(13);
-    var spellStream = aspell()
-        .on('ok', function(msg) {
-            t.assert(msg, 'word ok');
+    var spellStream = aspell({lang: 'en'})
+        .on('aspellOk', function(msg) {
+            t.assert(msg.type, 'aspellOk');
         })
-        .on('misspelling', function(err) {
+        .on('aspellMisspelling', function(err) {
             t.equal(err.word, 'wong', 'error on wong');
         });
 
@@ -32,8 +32,8 @@ test('fires "ok"-events', function(t) {
 
 test('fires "comment"-events', function(t) {
     t.plan(1);
-    var spellStream = aspell().on('comment', function(msg) {
-        t.assert(msg, 'comment event fired');
+    var spellStream = aspell({lang: 'en'}).on('aspellComment', function(msg) {
+        t.assert(msg.type, 'aspellComment');
     });
 
     spellStream.write('Boom.');
@@ -42,22 +42,22 @@ test('fires "comment"-events', function(t) {
 
 test('fires "ok"-events with run-together flag', function(t) {
     t.plan(1);
-    var spellStream = aspell({ runTogether: true })
-        .on('ok', function(msg) {
+    var spellStream = aspell({ lang: 'en', runTogether: true })
+        .on('aspell', function(msg) {
             if (msg.runTogether) {
-                t.assert(msg.runTogether, 'should pick up one run-together word');
+                t.assert(msg.runTogether, 'should pick up one runtogether word');
             }
         });
 
-    spellStream.write('The elephantman is coming for you.');
+    spellStream.write('The runtogether is coming for youa.');
     spellStream.end();
 });
 
 test('fires "line-break"-events', function(t) {
     t.plan(3);
-    var spellStream = aspell({ runTogether: true })
-        .on('line-break', function(msg) {
-            t.assert(msg, 'line-break event fired');
+    var spellStream = aspell({ lang: 'en', runTogether: true })
+        .on('aspellLineBreak', function(msg) {
+            t.assert(msg.type, 'aspellLineBreak');
         });
 
     spellStream.write('Never going to give you up\n');
